@@ -1,0 +1,86 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+
+    <title>CONTAINERS</title>
+</head>
+
+<body>
+    <div class="" style="width: 100%" ng-controller="ContainerCtrl">
+        <table ng-if="updateForm" class="table">
+            <thead>
+                <th style="text-align: center; text-align: center;">Update Container Status</th>
+                <tr>
+                    <th>ID</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input readonly class="form-control" ng-model="form.updateFormId"></td>
+                    <td><select class="form-control" ng-options="c for c in containerStatus" ng-model="form.statusNow"></select></td>
+                    <td><button class="btn btn-primary" ng-click="saveUpdatedContainer(form)">Save</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <h1 style="text-align: center;">CONTAINERS</h1>
+        <a ui-sref="home" style="float: right;"><h4>Go to Shipments</h4></a>
+        <table class="table">     
+            <thead>      
+                <tr>
+                    <!-- <th><a ui-sref="home">Go to Shipments</a></th> -->
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                <tr>
+                    <th>ID</th>
+                    <th>Weight Limit (kg)</th>
+                    <th>Volume Limit (cu cm)</th>
+                    <th>Weight Filled (kg)</th>
+                    <th>Volume Filled (cu cm)</th>
+                    <th>Status</th>
+                    <th>Shipments</th>
+                </tr>
+                <tr ng-if="containerRecords && containerRecords.length>0" ng-repeat="record in containerRecords">
+                    <td>
+                        {{record._id}}
+                    </td>
+                    <td>
+                        {{record.weightLimit}}
+                    </td>
+                    <td>
+                        {{record.volumeLimit}}
+                    </td>
+                    <td>
+                        {{record.weightFilled}}
+                    </td>
+                    <td>
+                        {{record.volumeFilled}}
+                    </td>
+                    <td>
+                        {{record.status}}
+                    </td>
+                    <td>
+                        <table>
+                            <tr ng-repeat="id in record.shipments">
+                                <td >{{id}}</td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td><button class="btn btn-danger" ng-click="updateContainerStatus(record)">Update</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.20/angular-ui-router.js"></script>
+    <script src="controllers/controller.js"></script>
+</body>
+
+</html>
